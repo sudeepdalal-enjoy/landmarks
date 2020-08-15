@@ -8,24 +8,28 @@
 
 import SwiftUI
 //describes the view’s content and layout.
-struct ContentView: View {
+struct LandmarkDetail: View {
+    var landmark : Landmark
+    init(landmark: Landmark){
+        self.landmark = landmark
+    }
     var body: some View {
         
         VStack{
-            MapView()
+            MapView(landmark: landmark)
             .edgesIgnoringSafeArea(.top)
                 .frame(height: 300)
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom,-130)
         VStack(alignment: .leading){
-            Text("Turtle Rock")
+            Text(landmark.name)
                 .font(.title)
             HStack {
-                Text("Joshua National Park")
+                Text(landmark.park)
                     .font(.subheadline)
                 Spacer()
-                Text("California")
+                Text(landmark.state)
                     .font(.subheadline)
             }
             
@@ -38,8 +42,9 @@ struct ContentView: View {
 }
 
 //declares a preview for that view.
-struct ContentView_Previews: PreviewProvider {
+struct LandmarkDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetail(landmark:landmarkData[0])
+         .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
     }
 }
